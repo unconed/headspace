@@ -15,8 +15,9 @@ export type Library = {
 export type Track = {
   name: string,
   files: Filename[],
-  delays: number[],
   inputs: Variable[],
+  gains?: number[],
+  delays?: number[],
   points?: [number, number][],
   expr: AST,
 };

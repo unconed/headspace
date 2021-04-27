@@ -27,9 +27,10 @@ type XYPanelProps = {
   setX: (x: number) => void,
   setY: (x: number) => void,
   points?: [number, number][],
+  levels: number[],
 };
 
-export const XYPanel: React.FC<XYPanelProps> = ({x, y, points, setX, setY}) => {
+export const XYPanel: React.FC<XYPanelProps> = ({x, y, points, levels, setX, setY}) => {
   const ref = useRef<HTMLDivElement>();
 
   const onMouseMove = useCallback((e: MouseEvent<HTMLDivElement>) => {
@@ -75,9 +76,13 @@ export const XYPanel: React.FC<XYPanelProps> = ({x, y, points, setX, setY}) => {
   };
 
   const children = [] as any[];
-  const addMarker = (key: string, x: number, y: number, color: string) => children.push(
+  const addMarker = (key: string, x: number, y: number, radius: number, color: string) => children.push(
     <div key={key} style={{
       ...MARKER_STYLE,
+      width: radius + 'px',
+      height: radius + 'px',
+      marginLeft: (-radius / 2 - 1) + 'px',
+      marginTop: (-radius / 2 - 1) + 'px',
       left: (x*299) + 'px',
       top:  ((1-y)*299) + 'px',
       backgroundColor: color,
@@ -86,9 +91,12 @@ export const XYPanel: React.FC<XYPanelProps> = ({x, y, points, setX, setY}) => {
 
   if (points) {
     let i = 0;
-    for (let p of points) addMarker(`${++i}`, p[0], p[1], 'rgba(255, 220, 0, 1)');
+    for (let p of points) {
+      addMarker(`${i}`, p[0], p[1], 5 + Math.round(20 * levels[i]), 'rgba(255, 255, 255, 1)');
+      ++i;
+    }
   }
-  addMarker('active', x, y, "#FF0030");
+  addMarker('active', x, y, 30, "#FF0030");
 
   return (
     <div

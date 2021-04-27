@@ -2,11 +2,13 @@ import { Track, Variable, Parameters, AST }  from './types';
 
 type Vec = (x: number) => number[];
 
-export const evaluateTrack = (track: Track, parameters: Parameters) => {
-  const { inputs, files, expr } = track;
+export const evaluateTrack = (track: Track, parameters: Parameters, gain: boolean = true) => {
+  const { inputs, files, expr, gains } = track;
   const vec = (x: number) => files.map(_ => x);
 
-  return evaluateAST(expr, vec, parameters);
+  let levels = evaluateAST(expr, vec, parameters);
+  if (gain && gains) levels = mulV(levels, gains);
+  return levels;
 }
 
 const upcast = (x: number[] | number, vec: Vec): number[] => typeof x === 'number' ? vec(x) : x;
