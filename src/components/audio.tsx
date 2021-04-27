@@ -10,8 +10,8 @@ export const useAudioPlayback = (
   onEnded: () => void,
 ) => {
   const playback = useMemo(() => {
-    const ping = () => setIsPlaying(playback.isPlaying());
-    return makePlayback(track, isPlaying, ping, ping, onEnded);
+    const onPing = () => setIsPlaying(playback.isPlaying());
+    return makePlayback(track, isPlaying, onPing, onPing, onEnded);
   }, [track]);
 
   playback.setParameters(parameters);
