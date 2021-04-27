@@ -4,7 +4,7 @@
     "noImplicitAny": true,
     "module": "es6",
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es2019",
     "allowJs": true,
     "resolveJsonModule": true,
     "jsx": "preserve"

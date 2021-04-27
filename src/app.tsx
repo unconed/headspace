@@ -1,7 +1,7 @@
 import { Library, Track } from './track/types';
 
 import React, { CSSProperties, ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
-import LIBRARY from './library.json';
+import LIBRARIES from './libraries.json';
 
 import { evaluateTrack } from './track/track';
 import { useAudioPlayback } from './components/audio';
@@ -18,11 +18,23 @@ type Parameters = {
 
 const INITIAL = { activity: 0.5, hazard: 0.5 };
 const NO_POINTS = [] as [number, number][];
+const toKey = (i: number) => `${i++}`;
+
+const libraries = LIBRARIES as any as Library[];
+const trackList = libraries.flatMap((l: Library) =>
+  l.tracks.map((t: Track) => [l, t])
+) as [Library, Track][];
+
+let k = 0;
+const trackOptions = libraries.map((l: Library, i: number) =>
+  <optgroup key={toKey(i)} label={l.name}>{
+    l.tracks.map((t: Track, j: number) => <option key={toKey(j)} value={toKey(k++)}>{t.name}</option>)
+  }</optgroup>
+);
 
 export const App = () => {
-  const [{tracks}] = LIBRARY as any as Library[];
   const [track, setTrack] = useState<number>(0);
-  const currentTrack = tracks[track];
+  const [currentLibrary, currentTrack] = trackList[track];
 
   const [parameters, setParameters] = useState<Parameters>(INITIAL);
   const {activity, hazard} = parameters;
@@ -38,11 +50,11 @@ export const App = () => {
   };
   const onEnded = () => {
     setIsPlaying(true);
-    setTrack((t: number) => (t + 1) % tracks.length);
+    setTrack((t: number) => (t + 1) % trackList.length);
   };
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const playback  = useAudioPlayback(currentTrack, parameters, isPlaying, setIsPlaying, onEnded);
+  const playback  = useAudioPlayback(currentLibrary, currentTrack, parameters, isPlaying, setIsPlaying, onEnded);
 
   const {points} = currentTrack;
   const levels = evaluateTrack(currentTrack, parameters, false);
@@ -50,19 +62,25 @@ export const App = () => {
   const selectTrack = (e: ChangeEvent<HTMLSelectElement>) => {
     const t = +e.target.value;
     if (!IS_SAFARI) return setTrack(t);
-    // Webaudio is broken in Safari, playback is silently aborted
+    // Webaudio is broken in Safari, playback is silently aborted if we immediately play the new track.
+    // Pause on each track change as a workaround.
     playback.pause();
     setTimeout(() => setTrack(t), 33);
   }
-  const options = tracks.map((t: Track, i: number) => <option key={'' + i} value={'' + i}>{t.name}</option>);
 
-  return (
+  const {id, art} = currentLibrary;
+  const artURL = art ? `music/${id}/${art}` : null;
+
+  return (<>
+    <div className="art">
+      {artURL ? <iframe className="art" src={artURL} /> : null}
+    </div>
     <div className="ui">
       <div className="row bar menu flex">
         {!isPlaying ? <button className="play" onClick={playback.play} aria-label="play"><span className="symbol" /></button> : null}
         {isPlaying ? <button className="pause" onClick={playback.pause} aria-label="pause"><span className="symbol" /></button> : null}
 
-        <select value={'' + track} className="item" onChange={selectTrack}>{options}</select>
+        <select value={'' + track} className="item" onChange={selectTrack}>{trackOptions}</select>
 
         <div className="drift">
           {!controlled ?
@@ -98,6 +116,6 @@ export const App = () => {
       </div>
       
     </div>
-  );
+  </>);
 };
 

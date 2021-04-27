@@ -8,6 +8,7 @@ export type Library = {
   id: string,
   name: string,
   artist: string,
+  art: string,
   createdAt: ISOTime,
   tracks: Track[],
 };
