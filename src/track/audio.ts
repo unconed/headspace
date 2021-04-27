@@ -28,6 +28,7 @@ export const makePlayback = (
   const initFiles = (track: Track): [HTMLAudioElement[], HTMLAudioElement] => {
     const {files} = track;
     let elements = loadFiles(files);
+    (window as any).__elements = elements;
 
     let isLoaded = 0;
     for (let el of elements) {
@@ -52,7 +53,8 @@ export const makePlayback = (
     const {delays} = track;
 
     // Lazy init autoContext on gesture, then keep it forever
-    audioContext = audioContext || new AudioContext();
+    // @ts-ignore
+    audioContext = audioContext || new (window.AudioContext ?? window.webkitAudioContext)();
     const {destination} = audioContext;
 
     const tracks = elements.map((el: HTMLAudioElement) => audioContext.createMediaElementSource(el));

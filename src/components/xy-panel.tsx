@@ -12,15 +12,6 @@ const MARKER_STYLE = {
   boxShadow: '0 0 15px rgba(0, 0, 0, .75), 0 0 3px rgba(0, 0, 0, 1)',
 } as CSSProperties;
 
-const PANEL_STYLE = {
-  position: 'relative',
-  cursor: 'crosshair',
-  width: '302px',
-  height: '302px',
-  background: "rgba(0, 0, 0, .65)",
-  border: "3px solid rgba(255, 220, 0, .75)",
-} as CSSProperties;
-
 type XYPanelProps = {
   x: number,
   y: number,
@@ -48,14 +39,17 @@ export const XYPanel: React.FC<XYPanelProps> = ({x, y, points, levels, setX, set
     e.preventDefault();
   }, [setX, setY]);
 
-  const bound = useRef<EventListener>();
+  const boundMove = useRef<EventListener>();
+  const boundUp   = useRef<EventListener>();
   const onMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-    document.addEventListener('mousemove', bound.current = onMouseMove as any as EventListener);
+    document.addEventListener('mousemove', boundMove.current = onMouseMove as any as EventListener);
+    document.addEventListener('mouseup', boundUp.current = onMouseUp as any as EventListener);
     onMouseMove(e);
   };
 
   const onMouseUp = (e: MouseEvent<HTMLDivElement>) => {
-    document.removeEventListener('mousemove', bound.current);
+    document.removeEventListener('mousemove', boundMove.current);
+    document.removeEventListener('mouseup', boundUp.current);
   };
 
   const onTouchStart = (e: TouchEvent<HTMLDivElement>) => {
@@ -101,7 +95,7 @@ export const XYPanel: React.FC<XYPanelProps> = ({x, y, points, levels, setX, set
   return (
     <div
       ref={(el) => ref.current = el}
-      style={PANEL_STYLE}
+      className="xy-panel"
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onTouchStart={onTouchStart}

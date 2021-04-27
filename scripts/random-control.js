@@ -4,7 +4,7 @@ const cors = require('cors');
 
 const PORT = 5001;
 
-// Every 10 seconds, change parameters
+// Every 10 seconds, randomize parameters
 const INTERVAL = 10000;
 
 const app = express();
@@ -31,6 +31,7 @@ const eventsHandler = (request, response, next) => {
 
   const timer = setInterval(randomizeParameters, INTERVAL);
 
+  randomizeParameters();
   request.on('close', () => {});
 }
 

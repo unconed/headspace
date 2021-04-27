@@ -30,11 +30,11 @@ export const useDrift = (drift: boolean, parameters: Parameters, setParameters: 
       const {activity, hazard} = paramRef.current;    
       if (activity !== a3) {
         h2 = a3 = activity;
-        a1 = rnd(); 
+        a1 = (h2 + rnd()) / 2; 
       }
       if (hazard !== h3) {
         h2 = h3 = hazard;
-        h1 = rnd();
+        h1 = (h1 + rnd()) / 2;
       }
 
       if (drift) {

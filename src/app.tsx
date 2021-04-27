@@ -9,6 +9,8 @@ import { XYPanel } from './components/xy-panel';
 import { useDrift } from './components/drift';
 import { useListen } from './components/listen';
 
+const IS_SAFARI = (!window.AudioContext && (window as any).webkitAudioContext);
+
 type Parameters = {
   activity: number,
   hazard: number
@@ -27,10 +29,9 @@ export const App = () => {
   const setActivity = (activity: number) => setParameters((p: Parameters) => ({...p, activity}));
   const setHazard   = (hazard: number)   => setParameters((p: Parameters) => ({...p, hazard}));
 
-  const controlled = location.hash && location.hash !== '#';
   const [drift, setDrift] = useState<boolean>(false);
   useDrift(drift, parameters, setParameters);
-  useListen(setParameters);
+  const [controlled, connected] = useListen(parameters, setParameters);
 
   const onPlaying = (b: boolean) => {
     setIsPlaying(b);
@@ -46,17 +47,40 @@ export const App = () => {
   const {points} = currentTrack;
   const levels = evaluateTrack(currentTrack, parameters, false);
 
-  const selectTrack = (e: ChangeEvent<HTMLSelectElement>) => setTrack(+e.target.value);
+  const selectTrack = (e: ChangeEvent<HTMLSelectElement>) => {
+    const t = +e.target.value;
+    if (!IS_SAFARI) return setTrack(t);
+    // Webaudio is broken in Safari, playback is silently aborted
+    playback.pause();
+    setTimeout(() => setTrack(t), 33);
+  }
   const options = tracks.map((t: Track, i: number) => <option key={'' + i} value={'' + i}>{t.name}</option>);
 
   return (
     <div className="ui">
-      <div className="row bar flex">
+      <div className="row bar menu flex">
+        {!isPlaying ? <button className="play" onClick={playback.play} aria-label="play"><span className="symbol" /></button> : null}
+        {isPlaying ? <button className="pause" onClick={playback.pause} aria-label="pause"><span className="symbol" /></button> : null}
+
         <select value={'' + track} className="item" onChange={selectTrack}>{options}</select>
-        {!isPlaying ? <button onClick={playback.play}>Play</button> : null}
-        {isPlaying ? <button onClick={playback.pause}>Pause</button> : null}
+
         <div className="drift">
-          <label><input disabled={controlled} type="checkbox" value="1" checked={drift} onChange={(e) => setDrift(e.target.checked)} /> Drift</label>
+          {!controlled ?
+              <label>
+                <input
+                  disabled={controlled}
+                  type="checkbox" 
+                  value="1"
+                  checked={drift}
+                  onChange={(e) => setDrift(e.target.checked)}
+                />
+                Drift
+              </label>
+          : null}
+          {controlled ? (connected
+            ? <span className="connected" title="Connected"></span >
+            : <span className="spinner" title="Connecting to Event Source"></span>
+           ) : null}
         </div>
       </div>
       <div className="relative">

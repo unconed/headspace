@@ -7,6 +7,7 @@ module.exports = {
   mode: 'development',
   entry: './src/index.tsx',
   output: {
+    filename: '[name].js?t=' + Date.now(),
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {

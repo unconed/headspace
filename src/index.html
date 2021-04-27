@@ -38,9 +38,13 @@
       .bar {
         background-color: rgba(0, 0, 0, .75);
         border: 3px solid rgba(255, 220, 0, .9);
+        border-radius: 2px;
+      }
+      .menu {
+        margin-bottom: 10px;        
       }
       .item {
-        margin-right: 10px;
+        margin-left: 10px;
       }
       .info {
         margin-top: 40px;
@@ -51,6 +55,8 @@
       .drift {
         flex-grow: 1;
         text-align: right;
+        line-height: 28px;
+        vertical-align: middle;
       }
       .relative {
         position: relative;
@@ -60,7 +66,16 @@
       }
       .y-label {
         top: 160px;
-        transform: translate(170px, 0px) rotate(-90deg);
+        transform: translate(174px, 0px) rotate(-90deg);
+      }
+      .xy-panel {
+        position: relative;
+        cursor: crosshair;
+        width: 302px;
+        height: 302px;
+        background: rgba(0, 0, 0, .65);
+        border: 3px solid rgba(255, 220, 0, .9);
+        border-radius: 1px;
       }
       .label {
         position: absolute;
@@ -72,10 +87,90 @@
         font-weight: bold;
         text-shadow: 0 0 15px rgba(0, 0, 0, .75), 0 0 3px rgba(0, 0, 0, 1);
       }
+      .spinner {
+        position: relative;
+        top: 2px;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 100%;
+        border-right: 5px solid rgb(255, 220, 0);
+        animation: 0.5s spin linear infinite;
+      }
+      .connected {
+        position: relative;
+        top: 2px;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 100%;
+        border: 5px solid rgb(255, 220, 0);
+        animation: 3.0s pulse ease-in-out infinite;
+      }
+      select {
+        border: 3px solid rgb(255, 220, 0);
+        background: none;
+        margin: 0;
+        padding: 3px 5px;
+        line-height: 16px;
+        color: rgb(255, 220, 0);
+      }
+      option {
+        color: inherit;
+        font-size: inherit;
+        background: #000;
+      }
+      button {
+        background: rgb(255, 220, 0);
+        margin: 0;
+        padding: 6px 10px;
+        border-radius: 2px;
+        vertical-align: middle;
+        line-height: 16px;
+        border: 0;
+      }
+      @keyframes pulse {
+        from {
+          opacity: 1;
+        }
+        50% {
+          opacity: .66;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
       a, a:visited, a:active, .label {
         color: rgb(255, 220, 0);
       }
       p { margin: 0; padding: 10px 0; }
+      .symbol {
+        position: relative;
+        top: -1px;
+        vertical-align: middle;
+        display: inline-block;
+      }
+      .play .symbol {
+        width: 14px;
+        height: 14px;        
+        border-top: 7px solid transparent;
+        border-bottom: 7px solid transparent;
+        border-left: 14px solid #000;
+      }
+      .pause .symbol {
+        width: 14px;
+        height: 14px;
+        border-left: 6px solid #000;
+        border-right: 6px solid #000;
+      }
     </style>
     <body><div id="root"></div></body>
 </html>
