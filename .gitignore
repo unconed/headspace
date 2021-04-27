@@ -1,0 +1,6 @@
+.DS_Store
+dist/
+library/**/*.mp3
+node_modules/
+public/music/
+yarn-error.log
