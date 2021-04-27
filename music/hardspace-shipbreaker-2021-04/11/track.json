@@ -4,7 +4,6 @@
     "name": "Crow's Feet"
   },
   "files": ["252549386.mp3", "921178029.mp3"],
-  "delays": [0, 0],
   "inputs": ["hazard"],
   "points": [[0.5, 0], [0.5, 1]],
   "expr":

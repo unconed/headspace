@@ -4,7 +4,6 @@
     "name": "Holding On"
   },
   "files": ["831538694.mp3", "150662546.mp3"],
-  "delays": [0, 0],
   "inputs": ["hazard"],
   "points": [[0.5, 0], [0.5, 1]],
   "expr":

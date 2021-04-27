@@ -4,7 +4,6 @@
     "name": "Unknown ✨"
   },
   "files": ["71538402.mp3", "291769860.mp3", "21225358.mp3"],
-  "delays": [0, 0, 0],
   "gains": [1.2, 1.2, 1.0],
   "inputs": ["activity", "hazard"],
   "points": [[0, 0], [1, 0], [0.5, 1]],

@@ -53,18 +53,23 @@ export const makePlayback = (
   };
 
   const initContext = (): [AudioContext, GainNode[]] => {
-    const {delays} = track;
-
     // Lazy init autoContext on gesture, then keep it forever
     // @ts-ignore
     audioContext = audioContext || new (window.AudioContext ?? window.webkitAudioContext)();
     const {destination} = audioContext;
 
-    const tracks = elements.map((el: HTMLAudioElement) => audioContext.createMediaElementSource(el));
+    // Get track delays
+    let {delays, files} = track;
+    delays = delays || files.map(() => 0);
     const min = delays.reduce((a: number, b: number) => Math.min(a, b), 0);
 
+    // Load track sources
+    const tracks = elements.map((el: HTMLAudioElement) => audioContext.createMediaElementSource(el));
+
+    // Gain nodes to control track level
     const gains = [] as any[];
 
+    // Set up audio graph
     let i = 0;
     for (let track of tracks) {
       const d = (delays[i] || 0) - min;
@@ -87,26 +92,34 @@ export const makePlayback = (
 
     return [audioContext, gains];
   };
-  
+
+  // Begin playback
   const play = () => {
+    // Lazy init
     if (!audioContext) {
       [audioContext, gains] = initContext();
     }
+
+    // If all files loaded
     if (isReady) {
       for (let el of elements) el.play();
     }
     else {
+      // Schedule playback
       isPending = true;
     }
+
     if (onStateChange) onStateChange();
   };
 
+  // End playback
   const pause = () => {
     for (let el of elements) el.pause();
     isPending = false;
     if (onStateChange) onStateChange();
   };
 
+  // Dispose of all resources
   const dispose = () => {
     if (elements) for (let el of elements) el.src = '';
     // @ts-ignore
@@ -114,7 +127,8 @@ export const makePlayback = (
     // @ts-ignore
     onLoaded = onStateChange = onEnded = null;
   };
-  
+
+  // Set user-defined audio parameters
   const setParameters = (parameters: Parameters) => {
     if (!audioContext) return;
 

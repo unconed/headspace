@@ -1,6 +1,5 @@
 export type Filename = string;
 export type Variable = string;
-export type ISOTime = string;
 
 export type Parameters = Record<string, number>;
 
@@ -11,7 +10,6 @@ export type Album = {
     artist: string,
   },
   art: string,
-  createdAt: ISOTime,
   tracks: Track[],
 };
 

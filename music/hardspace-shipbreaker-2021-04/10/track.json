@@ -4,7 +4,6 @@
     "name": "One Day Longer"
   },
   "files": ["922431765.mp3", "534327102.mp3"],
-  "delays": [0, 0],
   "inputs": ["hazard"],
   "points": [[0.5, 0], [0.5, 1]],
   "expr":

@@ -4,7 +4,6 @@
     "name": "The Miners ✨"
   },
   "files": ["932347653.mp3", "800187041.mp3", "658259737.mp3"],
-  "delays": [0, 0, 0],
   "gains": [1.2, 1, 1],
   "inputs": ["activity", "hazard"],
   "points": [[0, 0], [1, 0], [0.5, 1]],

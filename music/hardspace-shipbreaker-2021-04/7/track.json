@@ -4,7 +4,6 @@
     "name": "Gold Digger ⭐️"
   },
   "files": ["366896019.mp3", "965739102.mp3", "739292106.mp3", "555781591.mp3"],
-  "delays": [0, 0, 0, 0],
   "inputs": ["activity", "hazard"],
   "points": [[0, 0], [0.5, 0], [1, 0], [0.5, 1]],
   "expr": 

@@ -4,7 +4,6 @@
     "name": "The Traveler ⭐️"
   },
   "files": ["1018498689.mp3", "364765259.mp3", "279496927.mp3", "747800716.mp3"],
-  "delays": [0, 0, 0, 0],
   "inputs": ["activity", "hazard"],
   "points": [[0, 0], [0.5, 0], [1, 0], [0.5, 1]],
   "expr": 
