@@ -1,6 +1,7 @@
-import { Parameters, Track, Library } from './types';
+import { Parameters, Track, Album } from './types';
 import { evaluateTrack } from './track';
 
+// Hold on to audioContext for dear life once granted
 let audioContext;
 
 export const loadFiles = (path: string, files: string[]) =>
@@ -11,7 +12,7 @@ export const loadFiles = (path: string, files: string[]) =>
   });
 
 export const makePlayback = (
-  library: Library,
+  album: Album,
   track: Track,
   startsPlaying: boolean,
   onLoaded: Function,
@@ -26,8 +27,8 @@ export const makePlayback = (
   let isReady = false;
   let isPending = startsPlaying;
 
-  const initFiles = (library: Library, track: Track): [HTMLAudioElement[], HTMLAudioElement] => {
-    const {id} = library;
+  const initFiles = (album: Album, track: Track): [HTMLAudioElement[], HTMLAudioElement] => {
+    const {id} = album;
     const {files} = track;
     let elements = loadFiles(id, files);
     (window as any).__elements = elements;
@@ -125,7 +126,7 @@ export const makePlayback = (
     }
   };
 
-  [elements, referenceElement] = initFiles(library, track);
+  [elements, referenceElement] = initFiles(album, track);
 
   const [el] = elements;
   let isPlaying = () => el && !el.paused;

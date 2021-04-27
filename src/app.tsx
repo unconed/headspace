@@ -1,7 +1,7 @@
-import { Library, Track } from './track/types';
+import { Album, Track } from './track/types';
 
 import React, { CSSProperties, ChangeEvent, MouseEvent, useEffect, useRef, useState } from "react";
-import LIBRARIES from './libraries.json';
+import ALBUMS from './albums.json';
 
 import { evaluateTrack } from './track/track';
 import { useAudioPlayback } from './components/audio';
@@ -20,21 +20,21 @@ const INITIAL = { activity: 0.5, hazard: 0.5 };
 const NO_POINTS = [] as [number, number][];
 const toKey = (i: number) => `${i++}`;
 
-const libraries = LIBRARIES as any as Library[];
-const trackList = libraries.flatMap((l: Library) =>
-  l.tracks.map((t: Track) => [l, t])
-) as [Library, Track][];
+const albums = ALBUMS as any as Album[];
+const trackList = albums.flatMap((a: Album) =>
+  a.tracks.map((t: Track) => [a, t])
+) as [Album, Track][];
 
 let k = 0;
-const trackOptions = libraries.map((l: Library, i: number) =>
-  <optgroup key={toKey(i)} label={l.name}>{
-    l.tracks.map((t: Track, j: number) => <option key={toKey(j)} value={toKey(k++)}>{t.name}</option>)
+const trackOptions = albums.map((a: Album, i: number) =>
+  <optgroup key={toKey(i)} label={a.meta.name}>{
+    a.tracks.map((t: Track, j: number) => <option key={toKey(j)} value={toKey(k++)}>{t.meta.name}</option>)
   }</optgroup>
 );
 
 export const App = () => {
   const [track, setTrack] = useState<number>(0);
-  const [currentLibrary, currentTrack] = trackList[track];
+  const [currentAlbum, currentTrack] = trackList[track];
 
   const [parameters, setParameters] = useState<Parameters>(INITIAL);
   const {activity, hazard} = parameters;
@@ -54,7 +54,7 @@ export const App = () => {
   };
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const playback  = useAudioPlayback(currentLibrary, currentTrack, parameters, isPlaying, setIsPlaying, onEnded);
+  const playback  = useAudioPlayback(currentAlbum, currentTrack, parameters, isPlaying, setIsPlaying, onEnded);
 
   const {points} = currentTrack;
   const levels = evaluateTrack(currentTrack, parameters, false);
@@ -68,7 +68,7 @@ export const App = () => {
     setTimeout(() => setTrack(t), 33);
   }
 
-  const {id, art} = currentLibrary;
+  const {id, art} = currentAlbum;
   const artURL = art ? `music/${id}/${art}` : null;
 
   return (<>

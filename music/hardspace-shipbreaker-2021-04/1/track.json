@@ -1,0 +1,22 @@
+{
+  "type": "@acko.net/headspace/track",
+  "meta": {
+    "name": "Labor of Love ✨"
+  },
+  "files": ["339731771.mp3", "201128030.mp3", "646167737.mp3"],
+  "delays": [0, 0, 0],
+  "inputs": ["activity", "hazard"],
+  "points": [[0, 0], [1, 0], [0.5, 1]],
+  "expr": 
+    ["add",
+      ["mix",
+        ["track", 0],
+        ["track", 1],
+        ["input", "activity"]
+      ],
+      ["mul",
+        ["track", 2],
+        ["input", "hazard"]
+      ]
+    ]
+}

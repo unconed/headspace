@@ -1,7 +1,8 @@
 .DS_Store
 dist/
-library/**/*.mp3
+music/**/*.mp3
+music/**/*.png
 node_modules/
 public/music/
-src/library.json
+src/albums.json
 yarn-error.log

@@ -4,17 +4,21 @@ export type ISOTime = string;
 
 export type Parameters = Record<string, number>;
 
-export type Library = {
+export type Album = {
   id: string,
-  name: string,
-  artist: string,
+  meta: {
+    name: string,
+    artist: string,
+  },
   art: string,
   createdAt: ISOTime,
   tracks: Track[],
 };
 
 export type Track = {
-  name: string,
+  meta: {
+    name: string,
+  },
   files: Filename[],
   inputs: Variable[],
   gains?: number[],

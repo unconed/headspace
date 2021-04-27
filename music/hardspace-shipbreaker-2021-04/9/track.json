@@ -1,0 +1,18 @@
+{
+  "type": "@acko.net/headspace/track",
+  "meta": {
+    "name": "Red Sunset"
+  },
+  "files": ["745212740.mp3", "910113069.mp3"],
+  "delays": [0, 0],
+  "inputs": ["hazard"],
+  "points": [[0.5, 0], [0.5, 1]],
+  "expr":
+    ["add",
+      ["track", 0],
+      ["mul",
+        ["track", 1],
+        ["input", "hazard"]
+      ]
+    ]
+}

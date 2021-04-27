@@ -1,18 +1,18 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Parameters, Track, Library } from '../track/types';
+import { Parameters, Track, Album } from '../track/types';
 import { makePlayback } from '../track/audio';
 
 export const useAudioPlayback = (
-  library: Library,
+  album: Album,
   track: Track,
   parameters: Parameters,
-  isPlaying: boolean,
+  startsPlaying: boolean,
   setIsPlaying: (b: boolean) => void,
   onEnded: () => void,
 ) => {
   const playback = useMemo(() => {
     const onPing = () => setIsPlaying(playback.isPlaying());
-    return makePlayback(library, track, isPlaying, onPing, onPing, onEnded);
+    return makePlayback(album, track, startsPlaying, onPing, onPing, onEnded);
   }, [track]);
 
   playback.setParameters(parameters);
