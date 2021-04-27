@@ -3,49 +3,52 @@ import { Track, Variable, Parameters, AST }  from './types';
 type Vec = (x: number) => number[];
 
 export const evaluateTrack = (track: Track, parameters: Parameters) => {
-  const { inputs, tracks, expr } = track;
-  const vec = (x: number) => tracks.map(_ => x);
+  const { inputs, files, expr } = track;
+  const vec = (x: number) => files.map(_ => x);
 
   return evaluateAST(expr, vec, parameters);
 }
 
-export const evaluateAST = (ast: AST, vec: Vec, parameters: Parameters) => {
-  const [op, a, b, c, d, e] = ast;
+const upcast = (x: number[] | number, vec: Vec): number[] => typeof x === 'number' ? vec(x) : x;
 
+export const evaluateAST = (ast: AST, vec: Vec, parameters: Parameters): number[] => {
+  if (typeof ast === 'number') return vec(ast);
+
+  const [op, a, b, c, d, e] = ast;
   switch (op) {
     case 'add': {
-      let aVec = evaluateAST(a, vec, parameters);
-      let bVec = evaluateAST(b, vec, parameters);
-      return addV(aVec, bVec);
+      let aVec = evaluateAST(a as any as AST, vec, parameters);
+      let bVec = evaluateAST(b as any as AST, vec, parameters);
+      return addV(upcast(aVec, vec), upcast(bVec, vec));
     }
 
     case 'mul': {
-      let aVec = evaluateAST(a, vec, parameters);
-      let bVec = evaluateAST(b, vec, parameters);
-      return mulV(aVec, bVec);
+      let aVec = evaluateAST(a as any as AST, vec, parameters);
+      let bVec = evaluateAST(b as any as AST, vec, parameters);
+      return mulV(upcast(aVec, vec), upcast(bVec, vec));
     }
 
     case 'lerp': {
-      let aVec = evaluateAST(a, vec, parameters);
-      let bVec = evaluateAST(b, vec, parameters);
-      let tVec = evaluateAST(c, vec, parameters);
-      return lerpV(aVec, bVec, tVec);
+      let aVec = evaluateAST(a as any as AST, vec, parameters);
+      let bVec = evaluateAST(b as any as AST, vec, parameters);
+      let tVec = evaluateAST(c as any as AST, vec, parameters);
+      return lerpV(upcast(aVec, vec), upcast(bVec, vec), tVec);
     }
 
     case 'mix': {
-      let aVec = evaluateAST(a, vec, parameters);
-      let bVec = evaluateAST(b, vec, parameters);
-      let tVec = evaluateAST(c, vec, parameters);
-      return mixV(aVec, bVec, tVec);
+      let aVec = evaluateAST(a as any as AST, vec, parameters);
+      let bVec = evaluateAST(b as any as AST, vec, parameters);
+      let tVec = evaluateAST(c as any as AST, vec, parameters);
+      return mixV(upcast(aVec, vec), upcast(bVec, vec), upcast(tVec, vec));
     }
 
     case 'input': {
-      let val = parameters[a];
+      let val = parameters[a as any as number];
 
-      let min  = b ?? 0;
-      let max  = c ?? 1;
-      let from = d ?? 0;
-      let to   = e ?? 1;
+      let min  = b as any as number ?? 0;
+      let max  = c as any as number ?? 1;
+      let from = d as any as number ?? 0;
+      let to   = e as any as number ?? 1;
 
       const ratio = clamp((val - min) / (max - min), 0, 1);
       val = lerp(from, to, ratio);
@@ -54,7 +57,7 @@ export const evaluateAST = (ast: AST, vec: Vec, parameters: Parameters) => {
     
     case 'track': {
       const val = vec(0);
-      val[a] = 1;
+      val[a as any as number] = 1;
       return val;
     }
   }

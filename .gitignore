@@ -3,4 +3,5 @@ dist/
 library/**/*.mp3
 node_modules/
 public/music/
+src/library.json
 yarn-error.log

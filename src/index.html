@@ -2,7 +2,80 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Play</title>
+        <title>Headspace: Shipbreaker</title>
+        <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     </head>
-    <body><div id="#root"></div></body>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        height: 100%;
+        font: 16px Helvetica, sans-serif;
+        overflow: hidden;
+      }
+      body {
+        height: 100%;
+        background-color: #000000;
+        background-image: url(images/stars.png), url(images/character.png);
+        background-repeat: repeat, no-repeat;
+        background-position: 50% 50%, 0% 100%;
+        color: #fff;
+      }
+      .ui {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 350px;
+        height: 640px;
+        margin-left: -175px;
+        margin-top: -320px;
+      }
+      .row {
+        padding: 10px 25px;
+        margin-bottom: 0px;
+      }
+      .bar {
+        background-color: rgba(0, 0, 0, .75);
+        border: 3px solid rgba(255, 220, 0, .9);
+      }
+      .item {
+        margin-right: 10px;
+      }
+      .info {
+        margin-top: 30px;
+      }
+      .flex {
+        display: flex;
+      }
+      .drift {
+        flex-grow: 1;
+        text-align: right;
+      }
+      .relative {
+        position: relative;
+      }
+      .x-label {
+        top: 325px;
+      }
+      .y-label {
+        top: 160px;
+        transform: translate(170px, 0px) rotate(-90deg);
+      }
+      .label {
+        position: absolute;
+        text-transform: uppercase;
+        left: 0;
+        right: 0;
+        padding-left: 15px;
+        text-align: center;
+        font-weight: bold;
+        text-shadow: 0 0 15px rgba(0, 0, 0, .75), 0 0 3px rgba(0, 0, 0, 1);
+      }
+      a, a:visited, a:active, .label {
+        color: rgb(255, 220, 0);
+      }
+      p { margin: 0; padding: 10px 0; }
+    </style>
+    <body><div id="root"></div></body>
 </html>

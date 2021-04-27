@@ -30,8 +30,7 @@
     "build": "webpack --mode=production",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production",
-    "start": "webpack --watch",
-    "serve": "webpack serve",
+    "start": "webpack serve",
     "test": "jest --watch"
   },
   "jest": {

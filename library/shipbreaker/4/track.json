@@ -1,0 +1,16 @@
+{
+  "type": "@acko.net/headspace/track",
+  "name": "Project L",
+  "files": ["227026699.mp3", "255403628.mp3"],
+  "delays": [0, 0],
+  "inputs": ["hazard"],
+  "points": [[0.5, 0], [0.5, 1]],
+  "expr":
+    ["add",
+      ["track", 0],
+      ["mul",
+        ["track", 1],
+        ["input", "hazard"]
+      ]
+    ]
+}
