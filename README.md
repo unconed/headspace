@@ -39,7 +39,7 @@ Adding a `time` value will control the speed of transitions, though this is stil
 
 ### Changelog
 
-2021-04-21
+2021-04-29
 * Add shuffle and volume
 * Dip main score by 10% on full hazard
 
