@@ -29,6 +29,8 @@ The playback parameters can be controlled remotely by opening e.g.:
 
 [https://headspace.acko.net/#listen=http://localhost:44100](https://headspace.acko.net/#listen=http://localhost:44100).
 
+This is used by the [Visual Studio Code extension](https://github.com/unconed/vscode-headspace) to provide a live coding soundtrack.
+
 The player will connect to an HTTP EventStream (i.e. Server-Sent Events) at the given url (`http://localhost:44100`). It will expect JSON-formatted packets with parameter updates, e.g.:
 
 `{"activity": 0.24, "hazard": 0.31}`
