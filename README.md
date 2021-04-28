@@ -27,9 +27,9 @@ It can carry arbitrary number of layers, parameters, and even custom mixing form
 
 The playback parameters can be controlled remotely by opening e.g.:
 
-[https://headspace.acko.net/#listen=http://localhost:5001](https://headspace.acko.net/#listen=http://localhost:5001).
+[https://headspace.acko.net/#listen=http://localhost:44100](https://headspace.acko.net/#listen=http://localhost:44100).
 
-The player will connect to an HTTP EventStream (i.e. Server-Sent Events) at the given url (`http://localhost:5001`). It will expect JSON-formatted packets with parameter updates, e.g.:
+The player will connect to an HTTP EventStream (i.e. Server-Sent Events) at the given url (`http://localhost:44100`). It will expect JSON-formatted packets with parameter updates, e.g.:
 
 `{"activity": 0.24, "hazard": 0.31}`
 
