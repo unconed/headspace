@@ -184,6 +184,7 @@
         border-right: 6px solid #000;
       }
       .vscode {
+        opacity: .75;
         position: absolute;
         left: 50%;
         top: 50%;
@@ -193,6 +194,10 @@
         text-align: center;
         font-size: 80%;
         text-shadow: 0 0 5px rgba(0, 0, 0, .5), 0 0 10px rgba(0, 0, 0, .5), 0 0 20px rgba(0, 0, 0, .75);
+        transition: .15s opacity ease-in-out;
+      }
+      .vscode:hover {
+        opacity: 1;
       }
       .vscode a:not(:hover) {
         text-decoration: none;
