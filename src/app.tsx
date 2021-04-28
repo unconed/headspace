@@ -17,7 +17,7 @@ type Parameters = {
   volume: number,
 };
 
-const INITIAL = { activity: 0.5, hazard: 0.5, volume: 0.7 };
+const INITIAL = { activity: 0.5, hazard: 0.5, volume: 0.85 };
 const NO_POINTS = [] as [number, number][];
 const toKey = (i: number) => `${i++}`;
 
