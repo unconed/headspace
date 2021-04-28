@@ -135,7 +135,7 @@ export const makePlayback = (
     const levels = evaluateTrack(track, parameters);
     let i = 0;
     for (let level of levels) {
-      gains[i].gain.setTargetAtTime(level * volume, elements[i].currentTime, .01);
+      gains[i].gain.setTargetAtTime(level * volume * volume, elements[i].currentTime, .01);
       ++i;
     }
   };
