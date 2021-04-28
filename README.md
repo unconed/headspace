@@ -1,6 +1,6 @@
 # Headspace
 
-Headspace is a dynamic soundtrack player for the web, based on the game [Hardspace Shipbreaker](https://hardspace-shipbreaker.com/) by [https://blackbirdinteractive.com/](Blackbird Interactive).
+Headspace is a dynamic soundtrack player for the web, based on the game [Hardspace Shipbreaker](https://hardspace-shipbreaker.com/) by [Blackbird Interactive](https://blackbirdinteractive.com/).
 
 It plays back multiple sound files while allowing the user to control levels according to a pre-defined parameter mapping. This turns a song into an instrument you can play.
 
