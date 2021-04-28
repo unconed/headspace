@@ -1,4 +1,4 @@
-import React, { CSSProperties, MouseEvent, TouchEvent, useCallback, useRef } from 'react';
+import React, { CSSProperties, MouseEvent, TouchEvent, useCallback, useEffect, useRef } from 'react';
 
 const clamp = (x: number, a: number, b: number) => Math.max(a, Math.min(b, x));
 
@@ -41,6 +41,14 @@ export const XYPanel: React.FC<XYPanelProps> = ({x, y, points, levels, setX, set
 
   const boundMove = useRef<EventListener>();
   const boundUp   = useRef<EventListener>();
+
+  useEffect(() => {
+    return () => {
+      if (boundMove.current) document.removeEventListener('mousemove', boundMove.current);
+      if (boundUp.current) document.removeEventListener('mouseup', boundUp.current);
+    };
+  }, []);
+
   const onMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     document.addEventListener('mousemove', boundMove.current = onMouseMove as any as EventListener);
     document.addEventListener('mouseup', boundUp.current = onMouseUp as any as EventListener);
