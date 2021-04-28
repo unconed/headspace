@@ -131,11 +131,11 @@ export const makePlayback = (
   // Set user-defined audio parameters
   const setParameters = (parameters: Parameters) => {
     if (!audioContext) return;
-
+    const volume = parameters.volume ?? 1;
     const levels = evaluateTrack(track, parameters);
     let i = 0;
     for (let level of levels) {
-      gains[i].gain.setTargetAtTime(level, elements[i].currentTime, .01);
+      gains[i].gain.setTargetAtTime(level * volume, elements[i].currentTime, .01);
       ++i;
     }
   };

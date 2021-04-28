@@ -63,6 +63,7 @@
         border-radius: 2px;
       }
       .menu {
+        align-items: center;
         margin-bottom: 10px;        
       }
       .item {
@@ -130,7 +131,23 @@
         border: 5px solid rgb(255, 220, 0);
         animation: 3.0s pulse ease-in-out infinite;
       }
+      .speaker {
+        margin-left: 20px;
+      }
+      .volume {
+        margin-left: 5px;
+        width: 65px;
+      }
+      .volume input {
+        display: block;
+        width: 100%;
+      }
+      .shuffle {
+        margin-left: 15px;
+        cursor: pointer;
+      }
       select {
+        width: 161px;
         border: 3px solid rgb(255, 220, 0);
         background: none;
         margin: 0;
@@ -197,6 +214,129 @@
         border-left: 6px solid #000;
         border-right: 6px solid #000;
       }
+      .speaker .symbol {
+        width: 24px;
+        height: 24px;
+        display: flex;
+      }
+      .speaker .symbol > span {
+        display: block;
+        position: absolute;        
+      }
+      .speaker .symbol > span:nth-child(1) {
+        margin-top: 6px;
+        height: 12px;
+        border-right: 4px solid rgb(255, 220, 0);
+      }
+      .speaker .symbol > span:nth-child(2) {
+        left: 4px;
+        height: 24px;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-right: 6px solid rgb(255, 220, 0);
+      }
+      .speaker .symbol > span:nth-child(3) {
+        left: 5px;
+        margin-top: 5px;
+        width: 14px;
+        height: 14px;
+        border-radius: 100%;
+        border-right: 3px solid rgb(255, 220, 0, .75);
+      }
+      .speaker .symbol > span:nth-child(4) {
+        left: 5px;
+        margin-top: 2px;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        border-right: 3px solid rgb(255, 220, 0, .75);
+      }
+      .speaker.muted .symbol > span:nth-child(3) {
+        display: none;
+      }
+      .speaker.muted .symbol > span:nth-child(4), .speaker.low .symbol > span:nth-child(4) {
+        display: none;
+      }
+      .shuffle .symbol {
+        width: 24px;
+        height: 24px;
+      }
+      .shuffle .symbol > span {
+        display: block;
+        position: absolute;        
+      }
+      .shuffle .symbol > span:nth-child(1) {
+        left: 6px;
+        top: 4px;
+        width: 12px;
+        height: 20px;
+        border-left: 3px solid rgb(255, 220, 0);
+      }
+      .shuffle .symbol > span:nth-child(2) {
+        left: 6px;
+        top: 4px;
+        width: 12px;
+        height: 20px;
+        border-right: 3px solid rgb(255, 220, 0);
+      }
+      .shuffle .symbol > span:nth-child(3) {
+        left: 4px;
+        top: 0px;
+        width: 7px;
+        height: 7px;
+        border-bottom: 7px solid rgb(255, 220, 0);
+        border-left: 3px solid transparent;
+        border-right: 3px solid transparent;
+      }
+      .shuffle .symbol > span:nth-child(4) {
+        right: 4px;
+        top: 0px;
+        width: 7px;
+        height: 7px;
+        border-bottom: 7px solid rgb(255, 220, 0);
+        border-left: 3px solid transparent;
+        border-right: 3px solid transparent;
+      }
+      .shuffle.shuffled .symbol > span:nth-child(1) {
+        height: 8px;
+        border-bottom: 2px solid transparent;
+      }
+      .shuffle.shuffled .symbol > span:nth-child(2) {
+        height: 6px;
+      }
+      .shuffle.shuffled .symbol > span:nth-child(5) {
+        left: 6px;
+        top: 17px;
+        width: 12px;
+        height: 7px;
+        border-left: 3px solid rgb(255, 220, 0);
+      }
+      .shuffle.shuffled .symbol > span:nth-child(6) {
+        left: 6px;
+        top: 15px;
+        width: 12px;
+        height: 9px;
+        border-right: 3px solid rgb(255, 220, 0);
+        border-top: 2px solid transparent;
+      }
+      .shuffle.shuffled .symbol > span:nth-child(7) {
+        left: 6px;
+        top: 12px;
+        width: 6px;
+        height: 6px;
+        border-top-left-radius: 6px;
+        border-top: 3px solid rgb(255, 220, 0);
+        border-left: 3px solid rgb(255, 220, 0);
+      }
+      .shuffle.shuffled .symbol > span:nth-child(8) {
+        left: 12px;
+        top: 9px;
+        width: 6px;
+        height: 6px;
+        border-bottom-right-radius: 6px;
+        border-bottom: 3px solid rgb(255, 220, 0);
+        border-right: 3px solid rgb(255, 220, 0);
+      }
       .vscode {
         opacity: .75;
         position: absolute;
@@ -221,6 +361,65 @@
         height: 110px;
         padding-bottom: 10px;
       }
-    </style>
+      input[type=range] {
+        -webkit-appearance: none;
+        width: 100%;
+        background: transparent;
+      }
+
+      input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+      }
+
+      input[type=range]:focus {
+        outline: none;
+      }
+      input[type=range]::-ms-track {
+        width: 100%;
+        cursor: pointer;
+        background: transparent; 
+        border-color: transparent;
+        color: transparent;
+      }
+      input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 19px;
+        width: 19px;
+        border-radius: 100%;
+        background: rgb(255, 220, 0);
+        cursor: pointer;
+        margin-top: -7px;
+      }
+      input[type=range]::-moz-range-thumb {
+        height: 19px;
+        width: 19px;
+        border-radius: 100%;
+        background: rgb(255, 220, 0);
+        cursor: pointer;
+      }
+      input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 5px;
+        cursor: pointer;
+        background: rgba(255, 220, 0, .5);
+        border-radius: 2px;
+        transition: background .15s ease-in-out;
+      }
+      input[type=range]::-moz-range-track {
+        width: 100%;
+        height: 5px;
+        cursor: pointer;
+        background: rgba(255, 220, 0, .5);
+        border-radius: 2px;
+        transition: background .15s ease-in-out;
+      }
+      input[type=range]::-webkit-slider-runnable-track:hover {
+        background: rgba(255, 220, 0, .75);
+      }
+      input[type=range]::-moz-range-track:hover {
+        background: rgba(255, 220, 0, .75);
+      }
+      
+      </style>
     <body><div id="root"></div></body>
 </html>

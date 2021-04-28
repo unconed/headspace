@@ -13,10 +13,11 @@ const IS_SAFARI = (!window.AudioContext && (window as any).webkitAudioContext);
 
 type Parameters = {
   activity: number,
-  hazard: number
+  hazard: number,
+  volume: number,
 };
 
-const INITIAL = { activity: 0.5, hazard: 0.5 };
+const INITIAL = { activity: 0.5, hazard: 0.5, volume: 0.7 };
 const NO_POINTS = [] as [number, number][];
 const toKey = (i: number) => `${i++}`;
 
@@ -32,25 +33,58 @@ const trackOptions = albums.map((a: Album, i: number) =>
   }</optgroup>
 );
 
+let lastShuffled = null as number[] | null;
+let shuffled = null as number[] | null;
+const shuffleSongs = () => {
+  let last = lastShuffled ? lastShuffled.slice().reverse() : [];
+
+  let n = trackList.length;
+  let indices = trackList.map((_: any, i: number) => i);
+  let order = indices.map(() => Math.random());
+  indices.sort((a, b) => order[a] - order[b]);
+
+  let head: number[] = [];
+  let tail: number[] = [];
+  for (let i = 0; i < n; ++i) {
+    let t = indices[i];
+    const l = last.indexOf(t);
+    if (l >= 0 && (i + l < n / 2)) tail.push(t);
+    else head.push(t);
+  }
+
+  // immutable reference
+  lastShuffled = [...head, ...tail];
+  // mutable queue
+  shuffled = [...head, ...tail];
+}
+
 export const App = () => {
+  const [shuffle, setShuffle] = useState<boolean>(true);
   const [track, setTrack] = useState<number>(0);
   const [currentAlbum, currentTrack] = trackList[track];
 
   const [parameters, setParameters] = useState<Parameters>(INITIAL);
-  const {activity, hazard} = parameters;
+  const {activity, hazard, volume} = parameters;
   const setActivity = (activity: number) => setParameters((p: Parameters) => ({...p, activity}));
   const setHazard   = (hazard: number)   => setParameters((p: Parameters) => ({...p, hazard}));
+  const setVolume   = (volume: number)   => setParameters((p: Parameters) => ({...p, volume}));
 
   const [drift, setDrift] = useState<boolean>(false);
   useDrift(drift, parameters, setParameters);
+
   const [controlled, connected] = useListen(parameters, setParameters);
+
+  const handleNextTrack = (t: number) => {
+    if (shuffle && !shuffled?.length) shuffleSongs();
+    return shuffle ? shuffled.shift() : ((t + 1) % trackList.length);
+  }
 
   const onPlaying = (b: boolean) => {
     setIsPlaying(b);
   };
   const onEnded = () => {
     setIsPlaying(true);
-    setTrack((t: number) => (t + 1) % trackList.length);
+    setTrack(handleNextTrack);
   };
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -58,6 +92,11 @@ export const App = () => {
 
   const {points} = currentTrack;
   const levels = evaluateTrack(currentTrack, parameters, false);
+
+  // Shuffle instantly if paused
+  useEffect(() => {
+    if (shuffle && !isPlaying) setTrack(handleNextTrack);
+  }, [shuffle]);
 
   const selectTrack = (e: ChangeEvent<HTMLSelectElement>) => {
     const t = +e.target.value;
@@ -71,6 +110,9 @@ export const App = () => {
   const {id, art} = currentAlbum;
   const artURL = art ? `music/${id}/${art}` : null;
 
+  const speakerClassName = ["speaker", volume ? '' : 'muted', volume > .5 ? '' : 'low'].join(' ');
+  const shuffleClassName = ["shuffle", shuffle ? 'shuffled' : ''].join(' ');
+
   return (<>
     <div className="art">
       {artURL ? <iframe className="art" src={artURL} /> : null}
@@ -81,6 +123,20 @@ export const App = () => {
         {isPlaying ? <button className="pause" onClick={playback.pause} aria-label="pause"><span className="symbol" /></button> : null}
 
         <select value={'' + track} className="item" onChange={selectTrack}>{trackOptions}</select>
+
+        <div className={speakerClassName}>
+          <span className="symbol"><span /><span /><span /><span /></span>
+        </div>
+        <div className="volume" aria-label="Volume" title="Volume">
+          <input type="range" min="0" max="1" step="0.01" value={volume} onChange={(e) => setVolume(+e.target.value)} />
+        </div>
+
+        <div className={shuffleClassName} title="Shuffle">
+          <span className="symbol" aria-label="Shuffle" onClick={() => setShuffle(!shuffle)}>
+            <span /><span /><span /><span />
+            <span /><span /><span /><span />
+          </span>
+        </div>
 
         <div className="drift">
           {!controlled ?

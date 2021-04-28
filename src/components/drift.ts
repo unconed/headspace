@@ -54,7 +54,7 @@ export const useDrift = (drift: boolean, parameters: Parameters, setParameters: 
         h2 = clamp(lerp(h2, h1, DRIFT_RATIO), 0, 1);
         h3 = clamp(lerp(h3, h2, DRIFT_RATIO), 0, 1);
   
-        setParameters({ activity: a3, hazard: h3 });
+        setParameters((p: Record<string, number>) => ({...p, activity: a3, hazard: h3 }));
       }
     }
     timer = setInterval(loop, 250);

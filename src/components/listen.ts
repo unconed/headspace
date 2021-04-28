@@ -60,7 +60,7 @@ export const useListen = (parameters: Parameters, setParameters: Dispatch<SetSta
       h2 = clamp(lerp(h2, h1, factor), 0, 1);
       h3 = clamp(lerp(h3, h2, factor), 0, 1);
 
-      setParameters({ activity: a3, hazard: h3 });
+      setParameters((p: Record<string, number>) => ({...p, activity: a3, hazard: h3 }));
       setConnected(eventSource.readyState === 1);
     };
     timer = setInterval(loop, INTERVAL_TIME);
