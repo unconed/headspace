@@ -160,6 +160,9 @@
         color: rgb(255, 220, 0);
       }
       p { margin: 0; padding: 10px 0; }
+      p.tc {
+        text-align: center;
+      }
       .symbol {
         position: relative;
         top: -1px;
@@ -178,6 +181,25 @@
         height: 14px;
         border-left: 6px solid #000;
         border-right: 6px solid #000;
+      }
+      .vscode {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: 160px;
+        margin-left: 300px;
+        z-index: 2;
+        text-align: center;
+        font-size: 80%;
+        text-shadow: 0 0 5px rgba(0, 0, 0, .5), 0 0 15px rgba(0, 0, 0, .5);
+      }
+      .vscode a:not(:hover) {
+        text-decoration: none;
+      }
+      .vscode img {
+        width: 100px;
+        height: 110px;
+        padding-bottom: 10px;
       }
     </style>
     <body><div id="root"></div></body>

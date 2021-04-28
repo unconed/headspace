@@ -113,8 +113,15 @@ export const App = () => {
         <p>Move the red dot to change the tension.</p>
         <p><small>Music by {currentAlbum.meta?.artist ?? '-'}.</small></p>
         <p><small>Code by <a target="_blank" href="https://acko.net/">unconed</a>. Music extracted using <a target="_blank" href="https://vgmstream.org">VGMStream</a>. Thanks to <a href="https://github.com/hcs64/ww2ogg">hcs</a>.</small></p>
+        <p className="tc"><small><a href="https://github.com/unconed/headspace" target="_blank">Github Repo</a></small></p>
       </div>
-      
+    </div>
+    <div className="vscode">
+      <a href="https://github.com/unconed/headspace-vscode">
+        <img src="images/vscode-400.png" title="Headspace for VSCode" /><br />
+        Visual Studio <br />
+        Code Plug-in
+      </a>
     </div>
   </>);
 };

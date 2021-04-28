@@ -22,7 +22,9 @@ export const useListen = (parameters: Parameters, setParameters: Dispatch<SetSta
     let timer = null as any;
     let factor = DEFAULT_LERP_FACTOR;
 
-    const url = match[1];
+    let url = match[1];
+    if (url.match(/^:[0-9]+$/)) url = `http://localhost${url}`;
+
     const eventSource = new EventSource(url);
     eventSource.onopen = () => setConnected(true);
     eventSource.onmessage = (e: any) => {
