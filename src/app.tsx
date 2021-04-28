@@ -117,7 +117,7 @@ export const App = () => {
       </div>
     </div>
     <div className="vscode">
-      <a href="https://github.com/unconed/headspace-vscode">
+      <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=StevenWittens.vscode-headspace">
         <img src="images/vscode-400.png" title="Headspace for VSCode" /><br />
         Visual Studio <br />
         Code Plug-in
