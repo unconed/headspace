@@ -9,11 +9,14 @@
   "points": [[0, 0], [1, 0], [0.5, 1]],
   "expr": 
     ["add",
-      ["lerp",
-        ["track", 0],
-        ["track", 1],
-        ["input", "activity"]
-      ],
+      ["mul",
+        ["lerp",
+          ["track", 0],
+          ["track", 1],
+          ["input", "activity"]
+        ],
+        ["input", "hazard", 0, 1, 1, 0.9]
+      ],        
       ["mul",
         ["track", 2],
         ["input", "hazard"]

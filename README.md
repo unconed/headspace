@@ -37,6 +37,12 @@ The player will connect to an HTTP EventStream (i.e. Server-Sent Events) at the 
 
 Adding a `time` value will control the speed of transitions, though this is still hard-limited by an internal limit of 150ms and plenty of smoothing.
 
+### Changelog
+
+2021-04-21
+* Add shuffle and volume
+* Dip main score by 10% on full hazard
+
 ### Colofon
 
 Code by <a target="_blank" href="https://acko.net/">unconed</a>. Music extracted from .WEM using <a target="_blank" href="https://vgmstream.org">VGMStream</a>. Thanks to <a href="https://github.com/hcs64/ww2ogg">hcs</a>.</small>

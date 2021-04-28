@@ -59,7 +59,7 @@ const shuffleSongs = () => {
 }
 
 export const App = () => {
-  const [shuffle, setShuffle] = useState<boolean>(true);
+  const [shuffle, setShuffle] = useState<boolean>(false);
   const [track, setTrack] = useState<number>(0);
   const [currentAlbum, currentTrack] = trackList[track];
 
