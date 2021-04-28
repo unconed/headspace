@@ -111,8 +111,8 @@ export const App = () => {
       <div className="row bar info">
         <p>A recreation of the dynamic helmet soundtrack from <a target="_blank" href="https://hardspace-shipbreaker.com/">Hardspace Shipbreaker</a> by  <a target="_blank" href="https://blackbirdinteractive.com/">Blackbird Interactive</a>.</p>
         <p>Move the red dot to change the tension.</p>
-        <p><small>Music by {currentAlbum.meta?.artist ?? '-'}.</small></p>
-        <p><small>Code by <a target="_blank" href="https://acko.net/">unconed</a>. Music extracted using <a target="_blank" href="https://vgmstream.org">VGMStream</a>. Thanks to <a href="https://github.com/hcs64/ww2ogg">hcs</a>.</small></p>
+        <p><small>Music by {currentAlbum.meta?.artist ?? '-'}.</small><br />
+        <small>Code by <a target="_blank" href="https://acko.net/">unconed</a>. Music extracted using <a target="_blank" href="https://vgmstream.org">VGMStream</a>. Thanks to <a href="https://github.com/hcs64/ww2ogg">hcs</a>.</small></p>
         <p className="tc"><small><a href="https://github.com/unconed/headspace" target="_blank">Github Repo</a></small></p>
       </div>
     </div>
