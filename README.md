@@ -42,6 +42,7 @@ Adding a `time` value will control the speed of transitions, though this is stil
 2021-04-29
 * Add shuffle and volume
 * Dip main score by 10% on full hazard
+* Put a slight curve on the hazard level to lower intensity at 50%
 
 ### Colofon
 

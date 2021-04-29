@@ -19,7 +19,7 @@
       ],        
       ["mul",
         ["track", 2],
-        ["input", "hazard"]
+        ["pow", ["input", "hazard"], 1.3]
       ]
     ]
 }

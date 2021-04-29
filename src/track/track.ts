@@ -30,6 +30,12 @@ export const evaluateAST = (ast: AST, vec: Vec, parameters: Parameters): number[
       return mulV(upcast(aVec, vec), upcast(bVec, vec));
     }
 
+    case 'pow': {
+      let aVec = evaluateAST(a as any as AST, vec, parameters);
+      let bVec = evaluateAST(b as any as AST, vec, parameters);
+      return powV(upcast(aVec, vec), upcast(bVec, vec));
+    }
+
     case 'lerp': {
       let aVec = evaluateAST(a as any as AST, vec, parameters);
       let bVec = evaluateAST(b as any as AST, vec, parameters);
@@ -67,6 +73,7 @@ export const evaluateAST = (ast: AST, vec: Vec, parameters: Parameters): number[
 
 export const addV  = (a: number[], b: number[]) => a.map((x: number, i: number) => x + b[i]);
 export const mulV  = (a: number[], b: number[]) => a.map((x: number, i: number) => x * b[i]);
+export const powV  = (a: number[], b: number[]) => a.map((x: number, i: number) => Math.pow(x, b[i]));
 export const lerpV = (a: number[], b: number[], t: number[]) => a.map((x: number, i: number) => lerp(x, b[i], t[i]));
 export const mixV  = (a: number[], b: number[], t: number[]) => a.map((x: number, i: number) => Math.sqrt(lerp(sqr(x), sqr(b[i]), t[i])));
 

@@ -28,9 +28,10 @@ export type Track = {
 export type AST =
   ["add", AST, AST] |
   ["mul", AST, AST] |
+  ["pow", AST, AST] |
   ["lerp", AST, AST, AST] |
   ["mix", AST, AST, AST] |
   ["input", string] |
   ["input", string, number, number] |
   ["input", string, number, number, number, number] |
-  ["track", number];
+  ["track", number] | number;

@@ -4,7 +4,7 @@
     "name": "Suthern Gothic ✨"
   },
   "files": ["208931401.mp3", "842197793.mp3", "1056811278.mp3", "16550060.mp3"],
-  "gains": [2, 1, 1, 1],
+  "gains": [2, 1, 0.9, 0.9],
   "inputs": ["hazard"],
   "points": [[0, 0], [1, 0], [0, 1], [1, 1]],
   "expr":
@@ -23,7 +23,7 @@
           ["track", 3],
           ["input", "activity"]
         ],
-        ["input", "hazard"]
+        ["pow", ["input", "hazard"], 1.3]
       ]
     ]
 }
