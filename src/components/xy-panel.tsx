@@ -47,18 +47,18 @@ export const XYPanel: React.FC<XYPanelProps> = ({x, y, points, levels, setX, set
       if (boundMove.current) document.removeEventListener('mousemove', boundMove.current);
       if (boundUp.current) document.removeEventListener('mouseup', boundUp.current);
     };
-  }, []);
+  }, [boundMove, boundUp]);
 
-  const onMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+  const onMouseDown = useCallback((e: MouseEvent<HTMLDivElement>) => {
     document.addEventListener('mousemove', boundMove.current = onMouseMove as any as EventListener);
     document.addEventListener('mouseup', boundUp.current = onMouseUp as any as EventListener);
     onMouseMove(e);
-  };
+  }, [boundMove, boundUp]);
 
-  const onMouseUp = (e: MouseEvent<HTMLDivElement>) => {
+  const onMouseUp = useCallback((e: MouseEvent<HTMLDivElement>) => {
     document.removeEventListener('mousemove', boundMove.current);
     document.removeEventListener('mouseup', boundUp.current);
-  };
+  }, [boundMove, boundUp]);
 
   const onTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -105,7 +105,6 @@ export const XYPanel: React.FC<XYPanelProps> = ({x, y, points, levels, setX, set
       ref={(el) => ref.current = el}
       className="xy-panel"
       onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
     >

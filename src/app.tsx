@@ -117,6 +117,7 @@ export const App = () => {
     <div className="art">
       {artURL ? <iframe className="art" src={artURL} /> : null}
     </div>
+    <div className="shim"></div>
     <div className="ui">
       <div className="row bar menu flex">
         {!isPlaying ? <button className="play" onClick={playback.play} aria-label="play"><span className="symbol" /></button> : null}
